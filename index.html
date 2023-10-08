@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>임승민, way to go!!</title>
+</head>
+<body>
+  <h1 id="sound"></h1>
+  <img id="img" style="width:300px;" src="" />
+  <input id="name" type="text" on="getSound()" />
+  <button onclick="getSound()">api 요청</button>
+  <script>
+    function getSound() {
+      const name = document.getElementById('name').value
+      fetch(`http://localhost:3000/sound/${name}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        document.getElementById('img').src = data.img + '?' + new Date().getTime()
+        document.getElementById('sound').innerHTML = data.sound
+        document.querySelector('#name').select()
+      });
+    }
+
+    document.querySelector('#name').addEventListener('keyup', (e) => {
+        if (e.keyCode === 13) {
+          getSound()
+        }
+    });
+  </script>
+</body>
+</html>
